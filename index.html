@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arabic Vocabulary Profile - A1 CEFR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sand: #F5EDE0;
+            --warm-cream: #FFF8F0;
+            --terracotta: #C7956D;
+            --deep-brown: #5C4033;
+            --gold: #D4AF37;
+            --coral: #E07B39;
+            --soft-shadow: rgba(92, 64, 51, 0.08);
+            --border-color: rgba(199, 149, 109, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: linear-gradient(135deg, var(--sand) 0%, var(--warm-cream) 100%);
+            color: var(--deep-brown);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            color: var(--deep-brown);
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .arabic-title {
+            font-family: 'Amiri', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--terracotta);
+            margin-bottom: 1rem;
+            direction: rtl;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--terracotta);
+            font-weight: 400;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            font-family: 'Crimson Pro', serif;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            background: white;
+            color: var(--deep-brown);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px var(--soft-shadow);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--terracotta);
+            box-shadow: 0 6px 30px rgba(199, 149, 109, 0.2);
+        }
+
+        .search-box::placeholder {
+            color: rgba(92, 64, 51, 0.4);
+        }
+
+        .stats {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: var(--terracotta);
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .scroll-hint {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--coral);
+            font-size: 0.95rem;
+            font-style: italic;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .scroll-hint::after {
+            content: " →";
+            font-size: 1.2rem;
+        }
+
+        .category-grid {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.5s backwards;
+            scroll-snap-type: x proximity;
+        }
+
+        .category-grid::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .category-grid::-webkit-scrollbar-track {
+            background: rgba(199, 149, 109, 0.1);
+            border-radius: 10px;
+        }
+
+        .category-grid::-webkit-scrollbar-thumb {
+            background: var(--terracotta);
+            border-radius: 10px;
+        }
+
+        .category-grid::-webkit-scrollbar-thumb:hover {
+            background: var(--coral);
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px var(--soft-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            min-width: 340px;
+            max-width: 380px;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(199, 149, 109, 0.15);
+        }
+
+        .category-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .category-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--deep-brown);
+            margin-bottom: 0.3rem;
+        }
+
+        .word-count {
+            font-size: 0.9rem;
+            color: var(--terracotta);
+            font-style: italic;
+        }
+
+        .vocab-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .vocab-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .vocab-item:hover {
+            background: var(--sand);
+        }
+
+        .arabic {
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            color: var(--deep-brown);
+            text-align: right;
+            direction: rtl;
+            font-weight: 400;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.7;
+        }
+
+        .english {
+            font-size: 1rem;
+            color: var(--terracotta);
+            display: flex;
+            align-items: center;
+        }
+
+        .verb-footnote {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--terracotta);
+            font-style: italic;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            font-size: 1.3rem;
+            color: var(--terracotta);
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--terracotta);
+            font-size: 0.95rem;
+        }
+
+        .copyright {
+            font-weight: 600;
+            color: var(--deep-brown);
+            margin-top: 1rem;
+        }
+
+        .github-link {
+            color: var(--deep-brown);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .github-link:hover {
+            color: var(--gold);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .category-card {
+                min-width: 300px;
+                max-width: 340px;
+            }
+
+            .vocab-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .arabic {
+                text-align: center;
+            }
+
+            .english {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="arabic-title">ملفّ المفردات العربية</div>
+            <h1>Arabic Vocabulary Profile</h1>
+            <p class="subtitle">A1 - CEFR</p>
+        </header>
+
+        <div class="search-container">
+            <input 
+                type="text" 
+                class="search-box" 
+                id="searchBox" 
+                placeholder="Search in Arabic or English..."
+                autocomplete="off"
+            >
+        </div>
+
+        <div class="stats" id="stats"></div>
+
+        <div class="scroll-hint">Scroll horizontally to explore all categories</div>
+
+        <div class="category-grid" id="categoryGrid"></div>
+
+        <div class="no-results" id="noResults">
+            No vocabulary found matching your search.
+        </div>
+
+        <footer>
+            <p><strong>Arabic Vocabulary Profile</strong> · A1 - CEFR</p>
+            <p class="copyright">© Familiar, L., Atanassova. G.; Soliman, R. (2025)</p>
+            <p style="margin-top: 0.8rem;">Share this resource on <a href="#" class="github-link">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const vocabData = {
+            "NOUNS": [
+                        {
+                                    "arabic": "كِتابة",
+                                    "english": "writing"
+                        },
+                        {
+                                    "arabic": "استِماع",
+                                    "english": "listening"
+                        },
+                        {
+                                    "arabic": "قِراءة",
+                                    "english": "reading"
+                        },
+                        {
+                                    "arabic": "دِراسَة",
+                                    "english": "studying"
+                        },
+                        {
+                                    "arabic": "قواعد",
+                                    "english": "grammar"
+                        },
+                        {
+                                    "arabic": "كَلِمَة",
+                                    "english": "word"
+                        },
+                        {
+                                    "arabic": "حَرْف",
+                                    "english": "letter"
+                        },
+                        {
+                                    "arabic": "حُرُوف",
+                                    "english": "letters"
+                        },
+                        {
+                                    "arabic": "نُقطة",
+                                    "english": "dot"
+                        },
+                        {
+                                    "arabic": "اِسْم",
+                                    "english": "noun, name"
+                        },
+                        {
+                                    "arabic": "أَسْماء",
+                                    "english": "nouns, names"
+                        },
+                        {
+                                    "arabic": "فِعْل",
+                                    "english": "verb"
+                        },
+                        {
+                                    "arabic": "صِفة",
+                                    "english": "adjective"
+                        },
+                        {
+                                    "arabic": "جُمْلَة",
+                                    "english": "sentence"
+                        },
+                        {
+                                    "arabic": "جُمَل",
+                                    "english": "sentences"
+                        },
+                        {
+                                    "arabic": "تَرْجَمة",
+                                    "english": "translation"
+                        },
+                        {
+                                    "arabic": "صَفّ",
+                                    "english": "class, classroom"
+                        },
+                        {
+                                    "arabic": "صُفُوف",
+                                    "english": "classes, classrooms"
+                        },
+                        {
+                                    "arabic": "فَصْل",
+                                    "english": "class, classroom"
+                        },
+                        {
+                                    "arabic": "فُصُول",
+                                    "english": "classes, classrooms"
+                        },
+                        {
+                                    "arabic": "دَرْس",
+                                    "english": "lesson"
+                        },
+                        {
+                                    "arabic": "دُرُوس",
+                                    "english": "lessons"
+                        },
+                        {
+                                    "arabic": "واجِب",
+                                    "english": "homework"
+                        },
+                        {
+                                    "arabic": "اِمْتِحان",
+                                    "english": "exam, test"
+                        },
+                        {
+                                    "arabic": "سُؤال",
+                                    "english": "question"
+                        },
+                        {
+                                    "arabic": "لُغَة",
+                                    "english": "language"
+                        },
+                        {
+                                    "arabic": "أُسْتاذ",
+                                    "english": "teacher"
+                        },
+                        {
+                                    "arabic": "أساتِذة",
+                                    "english": "teachers"
+                        },
+                        {
+                                    "arabic": "مُدَرِّس",
+                                    "english": "teacher"
+                        },
+                        {
+                                    "arabic": "طالِب",
+                                    "english": "student"
+                        },
+                        {
+                                    "arabic": "طُلّاب",
+                                    "english": "students"
+                        },
+                        {
+                                    "arabic": "طَلبة",
+                                    "english": "students"
+                        },
+                        {
+                                    "arabic": "مَدْرَسَة",
+                                    "english": "school"
+                        },
+                        {
+                                    "arabic": "جامِعَة",
+                                    "english": "university"
+                        },
+                        {
+                                    "arabic": "دَفْتَر",
+                                    "english": "notebook"
+                        },
+                        {
+                                    "arabic": "كِتاب",
+                                    "english": "book"
+                        },
+                        {
+                                    "arabic": "كُتُب",
+                                    "english": "books"
+                        },
+                        {
+                                    "arabic": "صَفْحَة",
+                                    "english": "page"
+                        },
+                        {
+                                    "arabic": "قَلَم",
+                                    "english": "pen, pencil"
+                        },
+                        {
+                                    "arabic": "أُسْبُوع",
+                                    "english": "week"
+                        },
+                        {
+                                    "arabic": "الأَحَد",
+                                    "english": "Sunday"
+                        },
+                        {
+                                    "arabic": "الاثْنَين",
+                                    "english": "Monday"
+                        },
+                        {
+                                    "arabic": "الثُلاثاء",
+                                    "english": "Tuesday"
+                        },
+                        {
+                                    "arabic": "الأَربِعاء",
+                                    "english": "Wedenesday"
+                        },
+                        {
+                                    "arabic": "الخَمِيس",
+                                    "english": "Thursday"
+                        },
+                        {
+                                    "arabic": "الجُمْعة",
+                                    "english": "Friday"
+                        },
+                        {
+                                    "arabic": "السَبْت",
+                                    "english": "Saturday"
+                        },
+                        {
+                                    "arabic": "يَوْم",
+                                    "english": "day"
+                        },
+                        {
+                                    "arabic": "أَيّام",
+                                    "english": "days"
+                        },
+                        {
+                                    "arabic": "سَنَة",
+                                    "english": "year"
+                        },
+                        {
+                                    "arabic": "سَنَوات",
+                                    "english": "years"
+                        },
+                        {
+                                    "arabic": "سنين",
+                                    "english": "years"
+                        },
+                        {
+                                    "arabic": "عُمْر",
+                                    "english": "age"
+                        },
+                        {
+                                    "arabic": "سِنّ",
+                                    "english": "age"
+                        },
+                        {
+                                    "arabic": "وَقْت",
+                                    "english": "time"
+                        },
+                        {
+                                    "arabic": "ساعَة",
+                                    "english": "hour"
+                        },
+                        {
+                                    "arabic": "دَقِيقَة",
+                                    "english": "minute"
+                        },
+                        {
+                                    "arabic": "دَقائِق",
+                                    "english": "minutes"
+                        },
+                        {
+                                    "arabic": "صَباح",
+                                    "english": "morning"
+                        },
+                        {
+                                    "arabic": "نَهار",
+                                    "english": "day time"
+                        },
+                        {
+                                    "arabic": "مَساء",
+                                    "english": "evening "
+                        },
+                        {
+                                    "arabic": "لَيْل",
+                                    "english": "evening, night"
+                        },
+                        {
+                                    "arabic": "مَرَّة",
+                                    "english": "once"
+                        },
+                        {
+                                    "arabic": "أُمّ",
+                                    "english": "mother"
+                        },
+                        {
+                                    "arabic": "أَب",
+                                    "english": "father"
+                        },
+                        {
+                                    "arabic": "ماما",
+                                    "english": "mom"
+                        },
+                        {
+                                    "arabic": "بابا",
+                                    "english": "dad"
+                        },
+                        {
+                                    "arabic": "اِبْن",
+                                    "english": "son"
+                        },
+                        {
+                                    "arabic": "بِنْت",
+                                    "english": "daughter"
+                        },
+                        {
+                                    "arabic": "وَلَد",
+                                    "english": "boy"
+                        },
+                        {
+                                    "arabic": "أَوْلاد",
+                                    "english": "boys"
+                        },
+                        {
+                                    "arabic": "بَنات",
+                                    "english": "girls"
+                        },
+                        {
+                                    "arabic": "أَبْناء",
+                                    "english": "boys, boys and girls"
+                        },
+                        {
+                                    "arabic": "أَخ",
+                                    "english": "brother"
+                        },
+                        {
+                                    "arabic": "إِخْوة",
+                                    "english": "brothers, sibilings"
+                        },
+                        {
+                                    "arabic": "إخْوان",
+                                    "english": "brothers"
+                        },
+                        {
+                                    "arabic": "أُخْت",
+                                    "english": "sister"
+                        },
+                        {
+                                    "arabic": "أَخَوات",
+                                    "english": "sisters"
+                        },
+                        {
+                                    "arabic": "والِد /والِدة",
+                                    "english": "father / mother"
+                        },
+                        {
+                                    "arabic": "عَمّ / عَمّة",
+                                    "english": "uncle / aunt (paternal side)"
+                        },
+                        {
+                                    "arabic": "خال / خالة",
+                                    "english": "uncle / aunt (maternal side)"
+                        },
+                        {
+                                    "arabic": "جَدّ / جَدّة",
+                                    "english": "grandfather /grandmother"
+                        },
+                        {
+                                    "arabic": "زَوْج / زَوْجة",
+                                    "english": "husband / wife"
+                        },
+                        {
+                                    "arabic": "طِفْل / طِفْلة",
+                                    "english": "child (masc. / fem.)"
+                        },
+                        {
+                                    "arabic": "عائِلَة",
+                                    "english": "family"
+                        },
+                        {
+                                    "arabic": "أُسْرَة",
+                                    "english": "family"
+                        },
+                        {
+                                    "arabic": "اِمْرَأَة",
+                                    "english": "woman"
+                        },
+                        {
+                                    "arabic": "رَجُل",
+                                    "english": "man"
+                        },
+                        {
+                                    "arabic": "نِساء",
+                                    "english": "women"
+                        },
+                        {
+                                    "arabic": "رِجال",
+                                    "english": "men"
+                        },
+                        {
+                                    "arabic": "شَخْص",
+                                    "english": "person"
+                        },
+                        {
+                                    "arabic": "جار / جارة",
+                                    "english": "neighbor (masc. / fem.)"
+                        },
+                        {
+                                    "arabic": "صاحِب / صاحِبة",
+                                    "english": "friend (male / female)"
+                        },
+                        {
+                                    "arabic": "أَصْحاب",
+                                    "english": "friends"
+                        },
+                        {
+                                    "arabic": "صَدِيق / صديقة",
+                                    "english": "friend (male / female)"
+                        },
+                        {
+                                    "arabic": "أَصْدِقاء",
+                                    "english": "friends"
+                        },
+                        {
+                                    "arabic": "سَيِّد / سيدة",
+                                    "english": "Mr. / Madame"
+                        },
+                        {
+                                    "arabic": "ناس",
+                                    "english": "people"
+                        },
+                        {
+                                    "arabic": "قِطّة",
+                                    "english": "cat"
+                        },
+                        {
+                                    "arabic": "كَلْب",
+                                    "english": "dog"
+                        },
+                        {
+                                    "arabic": "شُغْل",
+                                    "english": "work"
+                        },
+                        {
+                                    "arabic": "عَمَل",
+                                    "english": "work"
+                        },
+                        {
+                                    "arabic": "رجل أعمال",
+                                    "english": "business man"
+                        },
+                        {
+                                    "arabic": "إِدارة أعمال",
+                                    "english": "business  "
+                        },
+                        {
+                                    "arabic": "مُوَظَّف",
+                                    "english": "employee"
+                        },
+                        {
+                                    "arabic": "طَبِيب",
+                                    "english": "doctor"
+                        },
+                        {
+                                    "arabic": "دُكْتُور",
+                                    "english": "doctor, professor"
+                        },
+                        {
+                                    "arabic": "قَمَر",
+                                    "english": "moon"
+                        },
+                        {
+                                    "arabic": "شَمْس",
+                                    "english": "sun "
+                        },
+                        {
+                                    "arabic": "غيوم",
+                                    "english": "clouds"
+                        },
+                        {
+                                    "arabic": "مَطَر",
+                                    "english": "rain"
+                        },
+                        {
+                                    "arabic": "ثَلْج",
+                                    "english": "snow, ice"
+                        },
+                        {
+                                    "arabic": "بَحْر",
+                                    "english": "sea "
+                        },
+                        {
+                                    "arabic": "شَجَرَة",
+                                    "english": "tree"
+                        },
+                        {
+                                    "arabic": "فَصْل",
+                                    "english": "season"
+                        },
+                        {
+                                    "arabic": "صَيْف",
+                                    "english": "summer"
+                        },
+                        {
+                                    "arabic": "شِتاء",
+                                    "english": "winter"
+                        },
+                        {
+                                    "arabic": "جَوّ",
+                                    "english": "weather"
+                        },
+                        {
+                                    "arabic": "حَرارَة",
+                                    "english": "temperature"
+                        },
+                        {
+                                    "arabic": "بَرْد",
+                                    "english": "cold"
+                        },
+                        {
+                                    "arabic": "بَيْت",
+                                    "english": "house"
+                        },
+                        {
+                                    "arabic": "بُيُوت",
+                                    "english": "houses"
+                        },
+                        {
+                                    "arabic": "شَقَّة",
+                                    "english": "apartment"
+                        },
+                        {
+                                    "arabic": "غُرْفَة",
+                                    "english": "room"
+                        },
+                        {
+                                    "arabic": "غُرَف",
+                                    "english": "rooms"
+                        },
+                        {
+                                    "arabic": "غُرْفة نَوْم",
+                                    "english": "bedroom"
+                        },
+                        {
+                                    "arabic": "مَطْبَخ",
+                                    "english": "kitchen"
+                        },
+                        {
+                                    "arabic": "حَمّام",
+                                    "english": "bathroom"
+                        },
+                        {
+                                    "arabic": "باب",
+                                    "english": "door"
+                        },
+                        {
+                                    "arabic": "كُرْسِيّ",
+                                    "english": "chair"
+                        },
+                        {
+                                    "arabic": "مَكْتَب",
+                                    "english": "office"
+                        },
+                        {
+                                    "arabic": "طاوِلَة",
+                                    "english": "table"
+                        },
+                        {
+                                    "arabic": "نُور",
+                                    "english": "light"
+                        },
+                        {
+                                    "arabic": "أَرْض",
+                                    "english": "ground"
+                        },
+                        {
+                                    "arabic": "مَكان",
+                                    "english": "place"
+                        },
+                        {
+                                    "arabic": "مَدِينَة",
+                                    "english": "city"
+                        },
+                        {
+                                    "arabic": "بَلَد",
+                                    "english": "country"
+                        },
+                        {
+                                    "arabic": "بِلاد",
+                                    "english": "countries"
+                        },
+                        {
+                                    "arabic": "طَرِيق",
+                                    "english": "road, way"
+                        },
+                        {
+                                    "arabic": "شارِع",
+                                    "english": "street"
+                        },
+                        {
+                                    "arabic": "عُنْوان",
+                                    "english": "address"
+                        },
+                        {
+                                    "arabic": "مِنْطَقَة",
+                                    "english": "area"
+                        },
+                        {
+                                    "arabic": "بنك",
+                                    "english": "bank"
+                        },
+                        {
+                                    "arabic": "مَكْتَبَة",
+                                    "english": "bookstore, library"
+                        },
+                        {
+                                    "arabic": "مَحَلّ",
+                                    "english": "shop, place"
+                        },
+                        {
+                                    "arabic": "مَقْهَى",
+                                    "english": "coffeeshop"
+                        },
+                        {
+                                    "arabic": "مَطْعَم",
+                                    "english": "restaurant"
+                        },
+                        {
+                                    "arabic": "سُوق",
+                                    "english": "market"
+                        },
+                        {
+                                    "arabic": "فُنْدُق",
+                                    "english": "hotel"
+                        },
+                        {
+                                    "arabic": "مَطار",
+                                    "english": "airport"
+                        },
+                        {
+                                    "arabic": "أتوبيس \\ باص",
+                                    "english": "bus"
+                        },
+                        {
+                                    "arabic": "سَيّارَة",
+                                    "english": "car"
+                        },
+                        {
+                                    "arabic": "شَيْء",
+                                    "english": "thing"
+                        },
+                        {
+                                    "arabic": "أَشْياء",
+                                    "english": "things"
+                        },
+                        {
+                                    "arabic": "كمبيوتر \\ حاسوب",
+                                    "english": "computer, laptop"
+                        },
+                        {
+                                    "arabic": "كاميرا",
+                                    "english": "camera"
+                        },
+                        {
+                                    "arabic": "تِلْفِزيُون",
+                                    "english": "television"
+                        },
+                        {
+                                    "arabic": "تِليِفُون \\ هاتِف",
+                                    "english": "phone, cellphone"
+                        },
+                        {
+                                    "arabic": "رَاديو",
+                                    "english": "radio"
+                        },
+                        {
+                                    "arabic": "إيميل",
+                                    "english": "email"
+                        },
+                        {
+                                    "arabic": "موبايل / جوال / محمول",
+                                    "english": "cellphone, cellular"
+                        },
+                        {
+                                    "arabic": "رَقْم",
+                                    "english": "number"
+                        },
+                        {
+                                    "arabic": "شاشَة",
+                                    "english": "screen"
+                        },
+                        {
+                                    "arabic": "فيديو",
+                                    "english": "video"
+                        },
+                        {
+                                    "arabic": "سينما",
+                                    "english": "cinema"
+                        },
+                        {
+                                    "arabic": "فِيلْم",
+                                    "english": "movie"
+                        },
+                        {
+                                    "arabic": "أَفْلام",
+                                    "english": "movies"
+                        },
+                        {
+                                    "arabic": "أخْبار",
+                                    "english": "news"
+                        },
+                        {
+                                    "arabic": "صورة",
+                                    "english": "photo, picture"
+                        },
+                        {
+                                    "arabic": "صُوَر",
+                                    "english": "photos, pictures"
+                        },
+                        {
+                                    "arabic": "رِسالة",
+                                    "english": "message"
+                        },
+                        {
+                                    "arabic": "رَسائِل",
+                                    "english": "messages"
+                        },
+                        {
+                                    "arabic": "مُوسِيقَى",
+                                    "english": "music"
+                        },
+                        {
+                                    "arabic": "طَعام",
+                                    "english": "food"
+                        },
+                        {
+                                    "arabic": "أَكْل",
+                                    "english": "food"
+                        },
+                        {
+                                    "arabic": "إِفْطار / فطور",
+                                    "english": "breakfast"
+                        },
+                        {
+                                    "arabic": "غَداء",
+                                    "english": "lunch"
+                        },
+                        {
+                                    "arabic": "عَشاء",
+                                    "english": "dinner"
+                        },
+                        {
+                                    "arabic": "حَلال",
+                                    "english": "halal"
+                        },
+                        {
+                                    "arabic": "قَهْوَة",
+                                    "english": "coffee "
+                        },
+                        {
+                                    "arabic": "شاي",
+                                    "english": "tea"
+                        },
+                        {
+                                    "arabic": "ماء",
+                                    "english": "water"
+                        },
+                        {
+                                    "arabic": "عَصِير",
+                                    "english": "juice"
+                        },
+                        {
+                                    "arabic": "حَلِيب",
+                                    "english": "milk"
+                        },
+                        {
+                                    "arabic": "سُكَّر",
+                                    "english": "sugar"
+                        },
+                        {
+                                    "arabic": "عَسَل",
+                                    "english": "honey"
+                        },
+                        {
+                                    "arabic": "فاكِهَة / فَواكه",
+                                    "english": "fruit"
+                        },
+                        {
+                                    "arabic": "بُرْتُقال",
+                                    "english": "oranges"
+                        },
+                        {
+                                    "arabic": "مَوْز",
+                                    "english": "bananas"
+                        },
+                        {
+                                    "arabic": "تُفَّاح",
+                                    "english": "apples"
+                        },
+                        {
+                                    "arabic": "بَطاطِس / بطاطا",
+                                    "english": "potato(es)"
+                        },
+                        {
+                                    "arabic": "طَماطِم (ماطيشة \\ بندورة \\ إلخ)",
+                                    "english": "tomato(es)"
+                        },
+                        {
+                                    "arabic": "أَرُز \\ رُزّ",
+                                    "english": "rice"
+                        },
+                        {
+                                    "arabic": "خُبْز",
+                                    "english": "bread"
+                        },
+                        {
+                                    "arabic": "مَكَرونة",
+                                    "english": "pasta"
+                        },
+                        {
+                                    "arabic": "بِيتْزا",
+                                    "english": "pizza"
+                        },
+                        {
+                                    "arabic": "بَيْض",
+                                    "english": "eggs"
+                        },
+                        {
+                                    "arabic": "لَحْم",
+                                    "english": "meat"
+                        },
+                        {
+                                    "arabic": "دَجاج (فراخ \\ جاج \\ إلخ)",
+                                    "english": "chicken"
+                        },
+                        {
+                                    "arabic": "سَمَك",
+                                    "english": "fish"
+                        },
+                        {
+                                    "arabic": "بِيرا \\ بِيرة",
+                                    "english": "beer"
+                        },
+                        {
+                                    "arabic": "جُبن \\ جُبْنة",
+                                    "english": "cheese"
+                        },
+                        {
+                                    "arabic": "لَبَن",
+                                    "english": "milk, yoghurt"
+                        },
+                        {
+                                    "arabic": "زَيت",
+                                    "english": "oil"
+                        },
+                        {
+                                    "arabic": "كُوب \\ كَأْس",
+                                    "english": "cup, glass"
+                        },
+                        {
+                                    "arabic": "فِنْجان",
+                                    "english": "(coffe, tea) cup "
+                        },
+                        {
+                                    "arabic": "حِساب",
+                                    "english": "bill"
+                        },
+                        {
+                                    "arabic": "كيلو",
+                                    "english": "kilo"
+                        },
+                        {
+                                    "arabic": "جِسْم",
+                                    "english": "body"
+                        },
+                        {
+                                    "arabic": "رَأْس",
+                                    "english": "head"
+                        },
+                        {
+                                    "arabic": "عَيْن",
+                                    "english": "eye"
+                        },
+                        {
+                                    "arabic": "يَد",
+                                    "english": "hand"
+                        },
+                        {
+                                    "arabic": "وَجْه",
+                                    "english": "face"
+                        },
+                        {
+                                    "arabic": "الله",
+                                    "english": "God"
+                        },
+                        {
+                                    "arabic": "حَياة",
+                                    "english": "life"
+                        },
+                        {
+                                    "arabic": "مَعْنَى",
+                                    "english": "meaning"
+                        },
+                        {
+                                    "arabic": "مُشْكِلَة",
+                                    "english": "problem"
+                        },
+                        {
+                                    "arabic": "نَفْس",
+                                    "english": "same (+noun)"
+                        },
+                        {
+                                    "arabic": "كُلّ",
+                                    "english": "all (of), each"
+                        },
+                        {
+                                    "arabic": "بَعْض",
+                                    "english": "some, a few"
+                        },
+                        {
+                                    "arabic": "أَيّ",
+                                    "english": "any"
+                        }
+            ],
+            "ADJECTIVES": [
+                        {
+                                    "arabic": "كَثِير",
+                                    "english": "many, many, a lot"
+                        },
+                        {
+                                    "arabic": "قَلِيل",
+                                    "english": "little, few"
+                        },
+                        {
+                                    "arabic": "صَغِير",
+                                    "english": "small"
+                        },
+                        {
+                                    "arabic": "كََبِير",
+                                    "english": "big"
+                        },
+                        {
+                                    "arabic": "طَوِيل",
+                                    "english": "long, tall"
+                        },
+                        {
+                                    "arabic": "قَصِير",
+                                    "english": "short"
+                        },
+                        {
+                                    "arabic": "جَدِيد",
+                                    "english": "new"
+                        },
+                        {
+                                    "arabic": "قَدِيم",
+                                    "english": "old"
+                        },
+                        {
+                                    "arabic": "بَعِيد",
+                                    "english": "far"
+                        },
+                        {
+                                    "arabic": "قَرِيب",
+                                    "english": "close"
+                        },
+                        {
+                                    "arabic": "سيّء",
+                                    "english": "bad"
+                        },
+                        {
+                                    "arabic": "جَيِّد",
+                                    "english": "good"
+                        },
+                        {
+                                    "arabic": "بارِد",
+                                    "english": "cold"
+                        },
+                        {
+                                    "arabic": "حارّ",
+                                    "english": "hot"
+                        },
+                        {
+                                    "arabic": "صَعْب",
+                                    "english": "difficult"
+                        },
+                        {
+                                    "arabic": "سَهْل",
+                                    "english": "easy"
+                        },
+                        {
+                                    "arabic": "جَمِيل",
+                                    "english": "beautiful"
+                        },
+                        {
+                                    "arabic": "لَذِيذ",
+                                    "english": "delicious, tasty"
+                        },
+                        {
+                                    "arabic": "طَيِّب",
+                                    "english": "delicious, tasty"
+                        },
+                        {
+                                    "arabic": "حُلُو",
+                                    "english": "sweet, nice"
+                        },
+                        {
+                                    "arabic": "سَعِيد",
+                                    "english": "happy"
+                        },
+                        {
+                                    "arabic": "مُمتاز",
+                                    "english": "excellent"
+                        },
+                        {
+                                    "arabic": "مُهِمّ",
+                                    "english": "important"
+                        },
+                        {
+                                    "arabic": "مُتَزَوِّج",
+                                    "english": "married"
+                        },
+                        {
+                                    "arabic": "جاهِز",
+                                    "english": "ready"
+                        },
+                        {
+                                    "arabic": "مَرِيض",
+                                    "english": "sick"
+                        },
+                        {
+                                    "arabic": "ساكِن",
+                                    "english": "living, residing in.."
+                        },
+                        {
+                                    "arabic": "تَعْبان",
+                                    "english": "tired"
+                        },
+                        {
+                                    "arabic": "زَعْلان",
+                                    "english": "upset, angry"
+                        },
+                        {
+                                    "arabic": "جَوْعان",
+                                    "english": "hungry"
+                        },
+                        {
+                                    "arabic": "أَكْثَر",
+                                    "english": "more"
+                        },
+                        {
+                                    "arabic": "أَكْبَر",
+                                    "english": "bigger"
+                        },
+                        {
+                                    "arabic": "أَحْسَن",
+                                    "english": "better"
+                        },
+                        {
+                                    "arabic": "أَخْضَر",
+                                    "english": "green"
+                        },
+                        {
+                                    "arabic": "أَحْمَر",
+                                    "english": "red"
+                        },
+                        {
+                                    "arabic": "أَبْيَض",
+                                    "english": "white"
+                        },
+                        {
+                                    "arabic": "أََسْوَد",
+                                    "english": "black"
+                        },
+                        {
+                                    "arabic": "واحِد",
+                                    "english": "one"
+                        },
+                        {
+                                    "arabic": "عَرَبيّ",
+                                    "english": "Arab, Arabic"
+                        }
+            ],
+            "VERBS": [
+                        {
+                                    "arabic": "كانَ",
+                                    "english": "to be"
+                        },
+                        {
+                                    "arabic": "راح",
+                                    "english": "to go"
+                        },
+                        {
+                                    "arabic": "نامَ",
+                                    "english": "to sleep"
+                        },
+                        {
+                                    "arabic": "مَشَى",
+                                    "english": "to walk"
+                        },
+                        {
+                                    "arabic": "سَكَنَ (في\\مع)",
+                                    "english": "to live, reside"
+                        },
+                        {
+                                    "arabic": "عاشَ (في\\مع)",
+                                    "english": "to live"
+                        },
+                        {
+                                    "arabic": "خَرَجَ (مِن\\إلى\\مع)",
+                                    "english": "to leave, go out"
+                        },
+                        {
+                                    "arabic": "ذَهَبَ (إلى)",
+                                    "english": "to go"
+                        },
+                        {
+                                    "arabic": "جَلَسَ (في\\مع)",
+                                    "english": "to sit"
+                        },
+                        {
+                                    "arabic": "جاءَ (مِن\\إلى)",
+                                    "english": "to come"
+                        },
+                        {
+                                    "arabic": "اِستمع (إلى)",
+                                    "english": "to listen"
+                        },
+                        {
+                                    "arabic": "رَجَعَ (إلى)",
+                                    "english": "to return"
+                        },
+                        {
+                                    "arabic": "تَكَلَّمَ (مع)*",
+                                    "english": "to talk"
+                        },
+                        {
+                                    "arabic": "لَعِبَ (مع\\في) *",
+                                    "english": "to play"
+                        },
+                        {
+                                    "arabic": "عَمِلَ (في\\مع) *",
+                                    "english": "to work"
+                        },
+                        {
+                                    "arabic": "عَرَفَ*",
+                                    "english": "to know"
+                        },
+                        {
+                                    "arabic": "أَرادَ*",
+                                    "english": "to want"
+                        },
+                        {
+                                    "arabic": "سَأَلَ*",
+                                    "english": "to ask"
+                        },
+                        {
+                                    "arabic": "سَمِعَ*",
+                                    "english": "to hear"
+                        },
+                        {
+                                    "arabic": "أَخَذَ*",
+                                    "english": "to take"
+                        },
+                        {
+                                    "arabic": "فَعَلَ*",
+                                    "english": "to do"
+                        },
+                        {
+                                    "arabic": "أَحَبَّ*",
+                                    "english": "to like, love"
+                        },
+                        {
+                                    "arabic": "تعلّمَ*",
+                                    "english": "to learn"
+                        },
+                        {
+                                    "arabic": "فَهِمَ*",
+                                    "english": "to understand"
+                        },
+                        {
+                                    "arabic": "فَتَحَ*",
+                                    "english": "to open"
+                        },
+                        {
+                                    "arabic": "كَتَبَ*",
+                                    "english": "to write"
+                        },
+                        {
+                                    "arabic": "قَرَأَ*",
+                                    "english": "to read"
+                        },
+                        {
+                                    "arabic": "شاهَدَ*",
+                                    "english": "to watch"
+                        },
+                        {
+                                    "arabic": "أَكَلَ*",
+                                    "english": "to eat"
+                        },
+                        {
+                                    "arabic": "اِشْتَرَى*",
+                                    "english": "to buy"
+                        },
+                        {
+                                    "arabic": "دَرسَ*",
+                                    "english": "to study"
+                        },
+                        {
+                                    "arabic": "شَرِبَ*",
+                                    "english": "to drink"
+                        },
+                        {
+                                    "arabic": "بدأَ*",
+                                    "english": "to start"
+                        },
+                        {
+                                    "arabic": "نظّف*",
+                                    "english": "to clean"
+                        },
+                        {
+                                    "arabic": "شاف*",
+                                    "english": "to see"
+                        },
+                        {
+                                    "arabic": "تذكّر*",
+                                    "english": "to remember"
+                        },
+                        {
+                                    "arabic": "أعطى*",
+                                    "english": "to give"
+                        },
+                        {
+                                    "arabic": "زارَ*",
+                                    "english": "to visit"
+                        },
+                        {
+                                    "arabic": "دَخَلَ*",
+                                    "english": "to enter"
+                        },
+                        {
+                                    "arabic": "قالَ*",
+                                    "english": "to say"
+                        },
+                        {
+                                    "arabic": "لَيْسَ",
+                                    "english": "not, not to be"
+                        }
+            ],
+            "ADVERBS": [
+                        {
+                                    "arabic": "أيْضاً",
+                                    "english": "also"
+                        },
+                        {
+                                    "arabic": "جِدّاً",
+                                    "english": "very"
+                        },
+                        {
+                                    "arabic": "طَبْعاً",
+                                    "english": "of course"
+                        },
+                        {
+                                    "arabic": "كَثِيراً",
+                                    "english": "a lot"
+                        },
+                        {
+                                    "arabic": "قَلِيلاً",
+                                    "english": "a little bit"
+                        },
+                        {
+                                    "arabic": "مُبَكِّراً",
+                                    "english": "early"
+                        },
+                        {
+                                    "arabic": "مُتَأَخِّراً",
+                                    "english": "late"
+                        },
+                        {
+                                    "arabic": "مَعاً",
+                                    "english": "together"
+                        },
+                        {
+                                    "arabic": "جَيِّداً",
+                                    "english": "good, well"
+                        },
+                        {
+                                    "arabic": "دائِماً",
+                                    "english": "always"
+                        },
+                        {
+                                    "arabic": "عادَةً",
+                                    "english": "usually"
+                        },
+                        {
+                                    "arabic": "أحْياناً",
+                                    "english": "sometimes"
+                        },
+                        {
+                                    "arabic": "أَبَداً",
+                                    "english": "never"
+                        },
+                        {
+                                    "arabic": "الآن",
+                                    "english": "now"
+                        },
+                        {
+                                    "arabic": "اليَوْم",
+                                    "english": "today"
+                        },
+                        {
+                                    "arabic": "اللَّيْلة",
+                                    "english": "tonight"
+                        },
+                        {
+                                    "arabic": "هُنا",
+                                    "english": "here"
+                        },
+                        {
+                                    "arabic": "هُناك",
+                                    "english": "there"
+                        }
+            ],
+            "EXPRESSIONS": [
+                        {
+                                    "arabic": "فعلاً",
+                                    "english": "really, indeed"
+                        },
+                        {
+                                    "arabic": "أَهْلاً",
+                                    "english": "hello"
+                        },
+                        {
+                                    "arabic": "أهلاً وسهلاً",
+                                    "english": "hello, welcome"
+                        },
+                        {
+                                    "arabic": "أهلاً بك",
+                                    "english": "(response to the greeting أَهْلاً وَسَهْلاً)"
+                        },
+                        {
+                                    "arabic": "مَرْحَباً",
+                                    "english": "hello, welcome"
+                        },
+                        {
+                                    "arabic": "شُكراً",
+                                    "english": "thank you"
+                        },
+                        {
+                                    "arabic": "عَفْواً",
+                                    "english": "you welcome (response to شُكراً)"
+                        },
+                        {
+                                    "arabic": "شُكراً جزيلاً",
+                                    "english": "thanks a lot"
+                        },
+                        {
+                                    "arabic": "السَلام عَلَيْكُم",
+                                    "english": "peace be with you (greeting)"
+                        },
+                        {
+                                    "arabic": "وَعَلَيْكُم السَلام",
+                                    "english": "(response to the greeting السلام عليكم)"
+                        },
+                        {
+                                    "arabic": "سَلام",
+                                    "english": "hi, bye (abbrev. of السلام عليكم \\ وعليكم السلام)"
+                        },
+                        {
+                                    "arabic": "صَباح الخير",
+                                    "english": "good morning"
+                        },
+                        {
+                                    "arabic": "صَباح النور",
+                                    "english": "(response to the greeting صَباح الخير)"
+                        },
+                        {
+                                    "arabic": "مَساء الخير",
+                                    "english": "good afternoon"
+                        },
+                        {
+                                    "arabic": "مَساء النور",
+                                    "english": "(response to the greeting مَساء الخير)"
+                        },
+                        {
+                                    "arabic": "تشَرَّفنا",
+                                    "english": "nice to meet you"
+                        },
+                        {
+                                    "arabic": "كيف الحال؟",
+                                    "english": "how are you?"
+                        },
+                        {
+                                    "arabic": "كيف حالك؟",
+                                    "english": "how are you? (sing.)"
+                        },
+                        {
+                                    "arabic": "مَعَ السَلامة",
+                                    "english": "goodbye"
+                        },
+                        {
+                                    "arabic": "باي",
+                                    "english": "bye"
+                        },
+                        {
+                                    "arabic": "إنْ شاءَ الله",
+                                    "english": "hopefully"
+                        },
+                        {
+                                    "arabic": "الحَمْدُ لله",
+                                    "english": "thanks god"
+                        },
+                        {
+                                    "arabic": "مِن فَضْلَك",
+                                    "english": "please, excuse me"
+                        },
+                        {
+                                    "arabic": "لَوْ سَمَحْت",
+                                    "english": "please, excuse me"
+                        },
+                        {
+                                    "arabic": "تفَضَّل",
+                                    "english": "welcome, go ahead"
+                        },
+                        {
+                                    "arabic": "يلّا",
+                                    "english": "come on, let's go"
+                        },
+                        {
+                                    "arabic": "طَيِّب",
+                                    "english": "ok, alright"
+                        },
+                        {
+                                    "arabic": "يَعْنِي",
+                                    "english": "I mean.. "
+                        },
+                        {
+                                    "arabic": "تمام",
+                                    "english": "ok, deal"
+                        },
+                        {
+                                    "arabic": "كِفاية",
+                                    "english": "(that's) enough"
+                        },
+                        {
+                                    "arabic": "خَلَص \\ خَلاص \\ صافي",
+                                    "english": "(that's) enough"
+                        },
+                        {
+                                    "arabic": "صَحّ  \\ صَحِيح",
+                                    "english": "correct, right"
+                        },
+                        {
+                                    "arabic": "غَلَط \\ خطأ",
+                                    "english": "wrong"
+                        },
+                        {
+                                    "arabic": "حاضِر \\ ماشي \\ أوكي",
+                                    "english": "ok, alright"
+                        },
+                        {
+                                    "arabic": "بِسُرْعة",
+                                    "english": "quickly"
+                        },
+                        {
+                                    "arabic": "مُمْكِن",
+                                    "english": "can / may..?"
+                        },
+                        {
+                                    "arabic": "آسِف",
+                                    "english": "I'm sorry"
+                        },
+                        {
+                                    "arabic": "أَلوو",
+                                    "english": "hello?"
+                        }
+            ],
+            "PARTICLES & INTERJECTIONS": [
+                        {
+                                    "arabic": "ال",
+                                    "english": "the"
+                        },
+                        {
+                                    "arabic": "يا",
+                                    "english": "(oh) vocative, hey"
+                        },
+                        {
+                                    "arabic": "لا",
+                                    "english": "no"
+                        },
+                        {
+                                    "arabic": "نَعَم",
+                                    "english": "yes"
+                        }
+            ],
+            "DEMONSTRATIVE PRONOUNS": [
+                        {
+                                    "arabic": "هذا",
+                                    "english": "this (masc.)"
+                        },
+                        {
+                                    "arabic": "هذه",
+                                    "english": "this (fem.)"
+                        },
+                        {
+                                    "arabic": "ذلك",
+                                    "english": "that (masc.)"
+                        },
+                        {
+                                    "arabic": "تِلك",
+                                    "english": "that (fem.)"
+                        }
+            ],
+            "CONJUNCTIONS": [
+                        {
+                                    "arabic": "وَ",
+                                    "english": "and"
+                        },
+                        {
+                                    "arabic": "أَوْ",
+                                    "english": "or"
+                        },
+                        {
+                                    "arabic": "ثُمَّ",
+                                    "english": "(and) then"
+                        },
+                        {
+                                    "arabic": "لَكِن \\ لَكِنَّ",
+                                    "english": "but"
+                        },
+                        {
+                                    "arabic": "فَقَط",
+                                    "english": "only"
+                        },
+                        {
+                                    "arabic": "لأنَّ",
+                                    "english": "because"
+                        }
+            ],
+            "PRONOUNS": [
+                        {
+                                    "arabic": "أنا",
+                                    "english": "I, me"
+                        },
+                        {
+                                    "arabic": "أنتَ",
+                                    "english": "you (masc.)"
+                        },
+                        {
+                                    "arabic": "أنتِ",
+                                    "english": "you (fem.)"
+                        },
+                        {
+                                    "arabic": "هُوَ",
+                                    "english": "he"
+                        },
+                        {
+                                    "arabic": "هِيَ",
+                                    "english": "she"
+                        },
+                        {
+                                    "arabic": "نَحْنُ",
+                                    "english": "we"
+                        },
+                        {
+                                    "arabic": "أَنْتُم",
+                                    "english": "you (plur.)"
+                        },
+                        {
+                                    "arabic": "هُمْ",
+                                    "english": "they"
+                        }
+            ],
+            "INTERROGATIVES": [
+                        {
+                                    "arabic": "هَل ؟",
+                                    "english": "(yes/no questions)"
+                        },
+                        {
+                                    "arabic": "كيف ؟",
+                                    "english": "how?"
+                        },
+                        {
+                                    "arabic": "ماذا ؟",
+                                    "english": "what?"
+                        },
+                        {
+                                    "arabic": "لِماذا ؟",
+                                    "english": "why?"
+                        },
+                        {
+                                    "arabic": "ما ؟",
+                                    "english": "what?"
+                        },
+                        {
+                                    "arabic": "أَيْن ؟",
+                                    "english": "where?"
+                        },
+                        {
+                                    "arabic": "كَم ؟",
+                                    "english": "how much/many?"
+                        },
+                        {
+                                    "arabic": "مَتى ؟",
+                                    "english": "when?"
+                        },
+                        {
+                                    "arabic": "مَن ؟",
+                                    "english": "who?"
+                        },
+                        {
+                                    "arabic": "من أين؟",
+                                    "english": "from where?"
+                        },
+                        {
+                                    "arabic": "مع مَن؟",
+                                    "english": "with whom?"
+                        },
+                        {
+                                    "arabic": "أَيّ؟",
+                                    "english": "which?"
+                        }
+            ],
+            "PREPOSITIONS": [
+                        {
+                                    "arabic": "في",
+                                    "english": "in, at"
+                        },
+                        {
+                                    "arabic": "مِن",
+                                    "english": "from"
+                        },
+                        {
+                                    "arabic": "لـِ",
+                                    "english": "to"
+                        },
+                        {
+                                    "arabic": "عَلى",
+                                    "english": "on, on top of"
+                        },
+                        {
+                                    "arabic": "إلى",
+                                    "english": "to, towards"
+                        },
+                        {
+                                    "arabic": "عَن",
+                                    "english": "about"
+                        },
+                        {
+                                    "arabic": "مَع",
+                                    "english": "with"
+                        },
+                        {
+                                    "arabic": "بـِ",
+                                    "english": "with"
+                        },
+                        {
+                                    "arabic": "بلا",
+                                    "english": "without"
+                        },
+                        {
+                                    "arabic": "بِدُون",
+                                    "english": "without"
+                        },
+                        {
+                                    "arabic": "بسبب",
+                                    "english": "because of"
+                        },
+                        {
+                                    "arabic": "بجانب",
+                                    "english": "next to"
+                        },
+                        {
+                                    "arabic": "بَيْن",
+                                    "english": "between"
+                        },
+                        {
+                                    "arabic": "عِنْد",
+                                    "english": "at (location)"
+                        },
+                        {
+                                    "arabic": "فَوْق",
+                                    "english": "on top of"
+                        },
+                        {
+                                    "arabic": "تَحْت",
+                                    "english": "below"
+                        },
+                        {
+                                    "arabic": "وَراء",
+                                    "english": "behind "
+                        },
+                        {
+                                    "arabic": "خَلْف",
+                                    "english": "behind"
+                        },
+                        {
+                                    "arabic": "أَمام",
+                                    "english": "in front of"
+                        },
+                        {
+                                    "arabic": "قَبْل",
+                                    "english": "before "
+                        },
+                        {
+                                    "arabic": "بَعْد",
+                                    "english": "after "
+                        },
+                        {
+                                    "arabic": "قبل ذلك",
+                                    "english": "previously, before that"
+                        },
+                        {
+                                    "arabic": "بعد ذلك",
+                                    "english": "afterwards, after that"
+                        }
+            ]
+};
+
+        let allWords = [];
+        let filteredData = {};
+
+        function initializeData() {
+            Object.keys(vocabData).forEach(category => {
+                vocabData[category].forEach(word => {
+                    allWords.push({
+                        category: category,
+                        arabic: word.arabic,
+                        english: word.english
+                    });
+                });
+            });
+            filteredData = {...vocabData};
+            renderCategories();
+            updateStats();
+        }
+
+        function renderCategories() {
+            const grid = document.getElementById('categoryGrid');
+            grid.innerHTML = '';
+
+            // Maintain the same order as in Excel
+            const categoryOrder = [
+                'NOUNS',
+                'ADJECTIVES', 
+                'VERBS',
+                'ADVERBS',
+                'EXPRESSIONS',
+                'PARTICLES & INTERJECTIONS',
+                'DEMONSTRATIVE PRONOUNS',
+                'CONJUNCTIONS',
+                'PRONOUNS',
+                'INTERROGATIVES',
+                'PREPOSITIONS'
+            ];
+
+            categoryOrder.forEach((category, index) => {
+                if (!filteredData[category]) return;
+                const words = filteredData[category];
+                if (words.length === 0) return;
+
+                const card = document.createElement('div');
+                card.className = 'category-card';
+
+                const header = document.createElement('div');
+                header.className = 'category-header';
+                header.innerHTML = `
+                    <div class="category-name">${category}</div>
+                    <div class="word-count">${words.length} lexical item${words.length !== 1 ? 's' : ''}</div>
+                `;
+
+                const list = document.createElement('div');
+                list.className = 'vocab-list';
+
+                words.forEach(word => {
+                    const item = document.createElement('div');
+                    item.className = 'vocab-item';
+                    item.innerHTML = `
+                        <div class="arabic">${word.arabic}</div>
+                        <div class="english">${word.english}</div>
+                    `;
+                    list.appendChild(item);
+                });
+
+                card.appendChild(header);
+                card.appendChild(list);
+
+                // Add footnote only to VERBS category
+                if (category === 'VERBS') {
+                    const footnote = document.createElement('div');
+                    footnote.className = 'verb-footnote';
+                    footnote.textContent = '* Verbs marked with asterisk are transitive';
+                    card.appendChild(footnote);
+                }
+
+                grid.appendChild(card);
+            });
+        }
+
+        function updateStats() {
+            const totalWords = Object.values(filteredData).reduce((sum, words) => sum + words.length, 0);
+            const totalCategories = Object.keys(filteredData).filter(cat => filteredData[cat].length > 0).length;
+            const statsEl = document.getElementById('stats');
+            statsEl.textContent = `${totalWords} lexical items across ${totalCategories} categories`;
+        }
+
+        function filterVocabulary(searchTerm) {
+            const term = searchTerm.toLowerCase().trim();
+            
+            if (!term) {
+                filteredData = {...vocabData};
+                document.getElementById('noResults').style.display = 'none';
+                document.getElementById('categoryGrid').style.display = 'flex';
+                renderCategories();
+                updateStats();
+                return;
+            }
+
+            filteredData = {};
+            Object.keys(vocabData).forEach(category => {
+                filteredData[category] = vocabData[category].filter(word => 
+                    word.arabic.includes(term) || 
+                    word.english.toLowerCase().includes(term)
+                );
+            });
+
+            const hasResults = Object.values(filteredData).some(words => words.length > 0);
+            
+            if (hasResults) {
+                document.getElementById('noResults').style.display = 'none';
+                document.getElementById('categoryGrid').style.display = 'flex';
+                renderCategories();
+                updateStats();
+            } else {
+                document.getElementById('categoryGrid').style.display = 'none';
+                document.getElementById('noResults').style.display = 'block';
+            }
+        }
+
+        document.getElementById('searchBox').addEventListener('input', (e) => {
+            filterVocabulary(e.target.value);
+        });
+
+        // Initialize on page load
+        initializeData();
+    </script>
+</body>
+</html>
