@@ -125,6 +125,7 @@
             padding-bottom: 2rem;
             animation: fadeInUp 0.8s ease-out 0.5s backwards;
             scroll-snap-type: x proximity;
+            align-items: flex-start;
         }
 
         .category-grid::-webkit-scrollbar {
@@ -264,6 +265,76 @@
             color: var(--gold);
         }
 
+        .validators-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .validators-toggle {
+            background: var(--terracotta);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .validators-toggle:hover {
+            background: var(--coral);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(199, 149, 109, 0.3);
+        }
+
+        .validators-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            margin-top: 0;
+        }
+
+        .validators-list.show {
+            max-height: 800px;
+            margin-top: 1.5rem;
+        }
+
+        .validators-names {
+            background: rgba(245, 237, 224, 0.5);
+            padding: 1.5rem;
+            border-radius: 12px;
+            line-height: 1.8;
+            color: var(--deep-brown);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .validators-names::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .validators-names::-webkit-scrollbar-track {
+            background: rgba(199, 149, 109, 0.1);
+            border-radius: 10px;
+        }
+
+        .validators-names::-webkit-scrollbar-thumb {
+            background: var(--terracotta);
+            border-radius: 10px;
+        }
+
+        #toggleIcon {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        #toggleIcon.rotate {
+            transform: rotate(180deg);
+        }
+
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -338,7 +409,22 @@
         <footer>
             <p><strong>Arabic Vocabulary Profile</strong> · A1 - CEFR</p>
             <p class="copyright">© Familiar, L., Atanassova. G.; Soliman, R. (2025)</p>
-            <p style="margin-top: 0.8rem;">Share this resource on <a href="#" class="github-link">GitHub</a></p>
+            
+            <div class="validators-section">
+                <button class="validators-toggle" id="validatorsToggle">
+                    <span id="toggleText">Show Validators</span> <span id="toggleIcon">▼</span>
+                </button>
+                <div class="validators-list" id="validatorsList">
+                    <p style="margin-bottom: 1rem; font-style: italic;">
+                        This vocabulary profile was validated by 71 expert teachers of Arabic as a second language:
+                    </p>
+                    <div class="validators-names">
+                        Afaf Nash, Ahmed Ben-Taj, Alaa Alshaikh Sulaiman, Alexander Magidow, Amani Hassan, Anna Pallarès i Serena, Anna Stern Taulats, Aya Muhammed Khalaf Ahmed, Ayman Mohamed, Baraa Mohammad Al Nweran, Caroline Najour, Christina Ossipova, Christopher Stone, Clarissa Burt, Dalal Abo El Seoud, David Wilmsen, Saadia Gamir, Emad Aly Mohamed Mahmoud, Faisal Alzahrani, Fatima A Alkohlani, Fatima Zahra Ahmed Sid, Fatima Zohra El-Madani, Fatima Zohra Filali Salek, Ghinwa Mamari, Giorgia Ferrari, Hala Afify, Hala Mohamed Makram, Hani Ismail Ramadan, Hany Saber Mansour, Hristina Todorova Chobanova-Angelova, Huda rabi abuzid, Huseyin Esved, Ibraam G.M. Abdelsayed, Iman Saad, Jamila Chahboun, Jan Hoogland, Jolanda Guardi, Jona Fras, Jumana Ghannam, Khaled H. Abuamsha, Khalil Estaytieh, Lakhzaz Abdelilah, Laurel Harig-Khan, Marco Soave, Marwa Mouazen, Mehmet Hakkı Suçin, Mohamed Amin Mostafa, Mohammad Ibrahim ALJarrah, Mona Maged Azzam, Nada Naji, Nehad Abdelmoneim Eltablawy, Noha Elrawy, Rachid ait bouch, Rafah Kayali, Ramadan Gamal Ramadan Muhammad, Rana Siblini, Rita Hamaoui, Sahar Mohamed Ahmed Abdel Gawwad, Salma Alamassi, Salwa Mohamed, Samar Alumari, Sara Hamed, Saudi Sadiq, Shaemaa Hosny Essa, Taher Fayez Abd elaal, Tanit Assaf, Tarek Bouattour, Tim Buckwalter, Victoria Aguilar, Viktor Bielicky, Zeynep Ertürk.
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 1.5rem;">Share this resource on <a href="#" class="github-link">GitHub</a></p>
         </footer>
     </div>
 
@@ -2150,6 +2236,25 @@
 
         // Initialize on page load
         initializeData();
+
+        // Validators toggle functionality
+        const validatorsToggle = document.getElementById('validatorsToggle');
+        const validatorsList = document.getElementById('validatorsList');
+        const toggleText = document.getElementById('toggleText');
+        const toggleIcon = document.getElementById('toggleIcon');
+
+        if (validatorsToggle) {
+            validatorsToggle.addEventListener('click', function() {
+                validatorsList.classList.toggle('show');
+                toggleIcon.classList.toggle('rotate');
+                
+                if (validatorsList.classList.contains('show')) {
+                    toggleText.textContent = 'Hide Validators';
+                } else {
+                    toggleText.textContent = 'Show Validators';
+                }
+            });
+        }
     </script>
 </body>
 </html>
